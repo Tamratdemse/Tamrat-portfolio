@@ -3,27 +3,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     carousels.forEach(carousel => {
         const images = carousel.querySelectorAll('img');
+        const videos = carousel.querySelectorAll('video');
         let currentIndex = 0;
 
-        const showImage = (index) => {
+        const showMedia = (index) => {
             images.forEach((img, idx) => {
                 img.style.display = idx === index ? 'block' : 'none';
             });
+            videos.forEach((video, idx) => {
+                video.style.display = idx === index ? 'block' : 'none';
+            });
         };
 
-        const nextImage = () => {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage(currentIndex);
+        const nextMedia = () => {
+            currentIndex = (currentIndex + 1) % (images.length + videos.length);
+            showMedia(currentIndex);
         };
 
-        const prevImage = () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage(currentIndex);
+        const prevMedia = () => {
+            currentIndex = (currentIndex - 1 + (images.length + videos.length)) % (images.length + videos.length);
+            showMedia(currentIndex);
         };
 
-        carousel.querySelector('.next').addEventListener('click', nextImage);
-        carousel.querySelector('.prev').addEventListener('click', prevImage);
+        carousel.querySelector('.next').addEventListener('click', nextMedia);
+        carousel.querySelector('.prev').addEventListener('click', prevMedia);
 
-        showImage(currentIndex);
+        showMedia(currentIndex);
     });
 });
